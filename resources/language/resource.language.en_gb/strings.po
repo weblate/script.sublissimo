@@ -63,7 +63,7 @@ msgid "Sublissimo"
 msgstr ""
 
 msgctxt "#33000"
-msgid "Select the subtitle to synchronize with. Then:\n- Select a timecode in the beginning to a line as refence\n- Select the roughly the same line in your subtitle\n- Then do same with two lines near the end of both files."
+msgid "Select the subtitle to synchronize with. Then:\n- Select a timecode in the beginning to a line as reference\n- Select the roughly the same line in your subtitle\n- Then do same with two lines near the end of both files."
 msgstr ""
 
 msgctxt "#32001"
@@ -192,6 +192,10 @@ msgstr ""
 
 msgctxt "#32032"
 msgid "Line:"
+msgstr ""
+
+msgctxt "#33032"
+msgid "Line "
 msgstr ""
 
 msgctxt "#32033"
@@ -415,7 +419,7 @@ msgid "Selected times:"
 msgstr ""
 
 msgctxt "#32087"
-msgid "Your first subtitles starts at: "
+msgid "Your first subtitle starts at: "
 msgstr ""
 
 msgctxt "#32088"
