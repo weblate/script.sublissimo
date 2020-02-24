@@ -10,8 +10,8 @@
     </extension>
     <extension point="xbmc.addon.metadata">
         <summary lang="en_GB">Edit and synchronize subtitles with your remote</summary>
-        <description lang="en_GB"></description>
-        <language></language>
+        <description lang="en_GB">With Sublissimo, it is no longer necessary to leave Kodi to modify your Subtitles. With this script you can edit specific lines, remove obnoxious commercials, move or stretch subtitles, search for specific lines and synchronize with other subtitles. You can also synchronize with a videofile.</description>
+        <language>English</language>
         <platform>all</platform>
         <license>MIT</license>
         <forum></forum>
