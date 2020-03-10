@@ -1,9 +1,8 @@
 # -*- coding: utf-8 -*-
-from resources.lib import kodiutils
-from resources.lib import kodilogging
 import mimetypes
 import logging
 import xbmcaddon
+import xbmcplugin
 import xbmc
 import sys
 import os
@@ -344,15 +343,13 @@ def make_timelines_classical(decimal):
               str(seconds).zfill(2) + "," + str(milliseconds).zfill(3))
     return output
 
-def tryout(starting_time, ending_time, subtitlefile, filename):
+def sync_after_wizard(starting_time, ending_time, subtitlefile, filename):
     start = make_timelines_classical(starting_time*1000)
     end = make_timelines_classical(ending_time*1000)
     current_start_sub = Subtitle(subtitlefile)
     subtitlefile2 = current_start_sub.move_subtitles(start)
-    # line_index = xbmcgui.Dialog().select("Result", subtitlefile2)
     current_sub = Subtitle(subtitlefile2)
     subtitlefile3 = current_sub.create_new_factor(end)
-    # xbmcgui.Dialog().multiselect("All subtitles", subtitlefile3)
     if subtitlefile3:
         # Succes, Your subs starts at, your subs end at.
         xbmcgui.Dialog().ok(_(32017), _(32036) + start + "\n" +
@@ -360,16 +357,12 @@ def tryout(starting_time, ending_time, subtitlefile, filename):
     show_dialog(subtitlefile3, filename)
 
 def retrieve_video(subtitlefile, filename):
-    dirname = os.path.dirname(filename)
-    location = xbmcgui.Dialog().browse(1, _(32020), 'files', '', False, False, dirname+"/")
-    if location == dirname+"/":
+    choice = xbmcgui.Dialog().contextmenu([_(32093), _(32094), _(32095)])
+    pos_locations = ["videodb://movies/titles/", "videodb://tvshows/titles/", "videodb://"]
+    location = xbmcgui.Dialog().browse(1, _(32020), 'video', '', False, False, pos_locations[choice])
+    if location == "videodb://":
         show_dialog(subtitlefile, filename)
-    mimestart = mimetypes.guess_type(location)[0]
-    if mimestart[:5] != 'video':
-        xbmcgui.Dialog().ok(_(32014), _(32020))
-        return retrieve_video(subtitlefile, filename)
-    else:
-        return location
+    return location
 
 def sync_with_video(subtitlefile, filename):
     #Name, long desc, Ok, More Info
@@ -384,7 +377,7 @@ def sync_with_video(subtitlefile, filename):
     xbmcPlayer.play(location)
     xbmc.sleep(500)
     while xbmcPlayer.isPlaying():
-        xbmc.sleep(500)
+       xbmc.sleep(500)
 
 def check_integrity_menu(subtitlefile, filename):
     subtitlefile, problems = check_integrity(subtitlefile)

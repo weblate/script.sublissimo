@@ -5,8 +5,6 @@ import sys
 import script
 import xbmcaddon
 import logging
-from resources.lib import kodiutils
-from resources.lib import kodilogging
 from script import *
 
 ADDON = xbmcaddon.Addon()
@@ -55,8 +53,8 @@ class SyncWizard(xbmc.Player) :
     def exit(self):
         script.show_dialog(self.subtitlefile, self.filename)
 
-    def ttt(self):
-        script.tryout(self.starting_time, self.ending_time, self.subtitlefile, self.filename)
+    def send_times(self):
+        script.sync_after_wizard(self.starting_time, self.ending_time, self.subtitlefile, self.filename)
 
     def onPlayBackPaused(self):
         current_time = xbmc.Player().getTime()
@@ -81,7 +79,6 @@ class SyncWizard(xbmc.Player) :
                 self.flag = False
                 xbmc.Player().pause()
             if res == 0 or res == -1:
-                # xbmc.Player().pause()
                 self.flag = False
             if res == 4:
                 xbmc.Player().stop()
@@ -121,21 +118,16 @@ class SyncWizard(xbmc.Player) :
                     self.flag = False
                 if res == 2:
                     xbmc.Player().seekTime(current_time - 1)
-                    # self.flag = False
                     xbmc.Player().pause()
                     xbmc.Player().pause()
                 if res == 3:
                     xbmc.Player().seekTime(current_time + 1)
                     xbmc.Player().pause()
                     xbmc.Player().pause()
-                    # self.flag = False
-                    # xbmc.Player().pause()
                 if res == 4:
                     self.starting_time = None
                     self.flag = False
                 if res == 0 or res == -1:
-                    # pass
-                    # self.flag = False
                     xbmc.Player().pause()
                 if res == 5:
                     xbmc.Player().stop()
@@ -155,4 +147,4 @@ class SyncWizard(xbmc.Player) :
 
         if self.ending_time and self.starting_time:
             xbmc.Player().stop()
-            self.ttt()
+            self.send_times()
