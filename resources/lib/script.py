@@ -14,6 +14,8 @@ from contextlib import closing
 from xbmcvfs import File
 from subtitle import Subtitle
 from syncwizard import SyncWizard
+from sync_by_frame_rate import SyncWizardFrameRate
+from play_along_file import PlayAlongFile
 import copy
 
 ADDON = xbmcaddon.Addon()
@@ -21,6 +23,7 @@ __addon__     = xbmcaddon.Addon()
 _  = __addon__.getLocalizedString
 logger = logging.getLogger(ADDON.getAddonInfo('id'))
 backupfile = None
+videodbfilename = None
 
 def select_line_subtitle(subtitlefile, start, end):
     start_index_found = False
@@ -112,7 +115,7 @@ def editing_menu(subtitlefile, filename):
     if secondmenuchoice == 3:
         subtitlefile = manually_delete_subtitle(subtitlefile)
         editing_menu(subtitlefile, filename)
-    if secondmenuchoice == 4:
+    if secondmenuchoice == 4 or secondmenuchoice == -1:
         show_dialog(subtitlefile, filename)
 
 def edit_specific_subtitle(subtitlefile, filename):
@@ -281,7 +284,7 @@ def move_subtitle(subtitlefile, filename, menuchoice=""):
     if menuchoice == 3 or menuchoice == -1:
         show_dialog(subtitlefile, filename)
 
-def save_the_file(subtitlefile, filename):
+def save_the_file(subtitlefile, filename, playing=False):
     global backupfile
     #save w. edited, save current, save custom, back, exit w/o saving
     choice = xbmcgui.Dialog().contextmenu([_(32038), _(32039), _(32040),
@@ -300,13 +303,25 @@ def save_the_file(subtitlefile, filename):
     with closing(File(new_file_name, 'w')) as fo:
         fo.write("".join(subtitlefile))
     backupfile = copy.deepcopy(subtitlefile)
-    if xbmcvfs.exists(new_file_name):
-        # written to, to use select in kodi sub menu
-        xbmcgui.Dialog().ok(_(32043), new_file_name + _(32044))
-    else:
-        #Error, File not written
-        xbmcgui.Dialog().ok(_(32014), _(32045))
-    show_dialog(subtitlefile, filename)
+    if playing:
+        xbmc.Player().setSubtitles(new_file_name)
+        temp_file = filename[:-4] + "_temp.srt"
+        if xbmcvfs.exists(temp_file):
+             xbmcvfs.delete(temp_file)
+        # succes, file saved to:
+        xbmcgui.Dialog().ok(_(32017), _(32123) + str(new_file_name))
+        xbmc.Player().pause()
+        sys.exit()
+    if not playing:
+        if xbmcvfs.exists(new_file_name):
+            # written to, to use select in kodi sub menu
+            xbmcgui.Dialog().ok(_(32043), new_file_name + _(32044))
+        else:
+            #Error, File not written
+            xbmcgui.Dialog().ok(_(32014), _(32045))
+        show_dialog(subtitlefile, filename)
+
+
 
 def exiting(subtitlefile=[], filename=""):
     global backupfile
@@ -357,11 +372,28 @@ def sync_after_wizard(starting_time, ending_time, subtitlefile, filename):
     show_dialog(subtitlefile3, filename)
 
 def retrieve_video(subtitlefile, filename):
-    choice = xbmcgui.Dialog().contextmenu([_(32093), _(32094), _(32095)])
-    pos_locations = ["videodb://movies/titles/", "videodb://tvshows/titles/", "videodb://"]
-    location = xbmcgui.Dialog().browse(1, _(32020), 'video', '', False, False, pos_locations[choice])
-    if location == "videodb://":
-        show_dialog(subtitlefile, filename)
+    global videodbfilename
+    if videodbfilename == None:
+        choice = xbmcgui.Dialog().contextmenu([_(32093), _(32094), _(32095), _(32005)])
+        if choice == 3 or choice == -1:
+            show_dialog(subtitlefile, filename)
+        pos_locations = ["videodb://movies/titles/", "videodb://tvshows/titles/", "videodb://"]
+        location = xbmcgui.Dialog().browse(1, _(32020), 'video', '', False, False, pos_locations[choice])
+        videodbfilename = location
+        if location == "videodb://":
+            show_dialog(subtitlefile, filename)
+    else:
+        choice = xbmcgui.Dialog().contextmenu([_(32116) , _(32093), _(32094), _(32095), _(32005)])
+        if choice == 4 or choice == -1:
+            show_dialog(subtitlefile, filename)
+        pos_locations = [videodbfilename, "videodb://movies/titles/", "videodb://tvshows/titles/", "videodb://"]
+        if choice == 0:
+            location = videodbfilename
+        else:
+            location = xbmcgui.Dialog().browse(1, _(32020), 'video', '', False, False, pos_locations[choice])
+            videodbfilename = location
+        if location == "videodb://":
+            show_dialog(subtitlefile, filename)
     return location
 
 def sync_with_video(subtitlefile, filename):
@@ -377,7 +409,7 @@ def sync_with_video(subtitlefile, filename):
     xbmcPlayer.play(location)
     xbmc.sleep(500)
     while xbmcPlayer.isPlaying():
-       xbmc.sleep(500)
+        xbmc.sleep(500)
 
 def check_integrity_menu(subtitlefile, filename):
     subtitlefile, problems = check_integrity(subtitlefile)
@@ -413,13 +445,72 @@ def load_subtitle():
         xbmcgui.Dialog().ok(_(32014), _(32027) + filename)
         sys.exit()
 
+def synchronize_by_frame_rate(subtitlefile, filename):
+    location = retrieve_video(subtitlefile, filename)
+    newplayer = SyncWizardFrameRate()
+    newplayer.add(subtitlefile, filename)
+    newplayer.play(location)
+    newplayer.give_frame_rate(False)
+    xbmc.sleep(500)
+    while newplayer.isPlaying():
+        xbmc.sleep(500)
+
+def play_along_file(subtitlefile, filename):
+    location = retrieve_video(subtitlefile, filename)
+    newplayer = PlayAlongFile()
+    newplayer.add(subtitlefile, filename)
+    newplayer.play(location)
+    xbmc.sleep(500)
+    newplayer.activate_sub()
+    while newplayer.isPlaying():
+        xbmc.sleep(500)
+
+def stretch_by_providing_factor(subtitlefile, filename):
+    try:
+        # Provide Factor
+        response = xbmcgui.Dialog().input(_(32117))
+    	new_factor = float(response)
+    except:
+        return stretch_by_providing_factor(subtitlefile, filename)
+    cur_sub = Subtitle(subtitlefile)
+    old_starting_time, old_ending_time = cur_sub.make_timelines_decimal()
+    new_timestamp = make_timelines_classical(new_factor * old_ending_time)
+    start_timestamp = make_timelines_classical(old_starting_time)
+    old_timestamp = make_timelines_classical(old_ending_time)
+    # New Ending, Starting time, Old ending time, New Ending time, Ok, Return
+    xbmcgui.Dialog().yesno(_(32107), _(32108) + str(start_timestamp) + "\n" +
+                                  _(32109) + str(old_timestamp) + "\n" +
+                                  _(32110) + str(new_timestamp) + "\n", yeslabel=_(32012), nolabel= _(32008))
+    new_subtitlefile = cur_sub.create_new_factor(new_timestamp, old_starting_time, old_ending_time)
+    show_dialog(new_subtitlefile, filename)
+
+
+def stretch_subtitle_menu(subtitlefile, filename):
+    # Synchronize by frame rate, Stretch by giving new end time, Stretch by providing factor, Back
+    menuchoice = xbmcgui.Dialog().contextmenu([_(32119), _(32118), _(32005)])
+    if menuchoice == 0:
+        stretch_subtitle(subtitlefile, filename)
+    if menuchoice == 1:
+        stretch_by_providing_factor(subtitlefile, filename)
+    if menuchoice == 2 or menuchoice == -1:
+        show_dialog(subtitlefile, filename)
+
+def advanced_options(subtitlefile, filename):
+    # Search, Check integrity, Back
+    menuchoice = xbmcgui.Dialog().contextmenu([_(31006), _(31007), _(32005)])
+    if menuchoice == 0:
+        search_subtitles(subtitlefile, filename)
+    if menuchoice == 1:
+        check_integrity_menu(subtitlefile, filename)
+    if menuchoice == 2 or menuchoice == -1:
+        show_dialog(subtitlefile, filename)
+
 def show_dialog(subtitlefile="", filename=""):
-    addon_name = ADDON.getAddonInfo('name')
     if not subtitlefile:
         subtitlefile, filename = load_subtitle()
-    #Scroll, edit, move, stretch, syncwsub syncwvideo, search, check, save, quit
-    options = [ _(31000), _(30001), _(31002), _(31003), _(31004), _(31005),
-                _(31006), _(31007), _(31008), _(31009)]
+    #Scroll, edit, move, stretch, syncwsub, syncwvideo, playalong, advanced, save, quit
+    options = [_(31000), _(30001), _(31002), _(31003), _(31004), _(31005),
+               _(31010), _(31011), _(31013), _(31008), _(31009)]
     menuchoice = xbmcgui.Dialog().contextmenu(options)
     if menuchoice == 0:
         xbmcgui.Dialog().multiselect(_(32010), subtitlefile)
@@ -429,17 +520,19 @@ def show_dialog(subtitlefile="", filename=""):
     if menuchoice == 2:
         move_subtitle(subtitlefile, filename)
     if menuchoice == 3:
-        stretch_subtitle(subtitlefile, filename)
+        stretch_subtitle_menu(subtitlefile, filename)
     if menuchoice == 4:
         subtitlefile = synchronize_with_other_subtitle(subtitlefile, filename)
         show_dialog(subtitlefile, filename)
     if menuchoice == 5:
         sync_with_video(subtitlefile, filename)
     if menuchoice == 6:
-        search_subtitles(subtitlefile, filename)
+        synchronize_by_frame_rate(subtitlefile, filename)
     if menuchoice == 7:
-        check_integrity_menu(subtitlefile, filename)
+        play_along_file(subtitlefile, filename)
     if menuchoice == 8:
+        advanced_options(subtitlefile, filename)
+    if menuchoice == 9:
         save_the_file(subtitlefile, filename)
-    if menuchoice == 9 or menuchoice == -1 :
+    if menuchoice == 10 or menuchoice == -1 :
         exiting(subtitlefile, filename)
