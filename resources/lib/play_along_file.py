@@ -27,13 +27,13 @@ class PlayAlongFile(xbmc.Player):
              xbmcvfs.delete(temp_file)
         if pause:
             self.proper_exit = True
-            xbmc.Player().stop()
+            self.stop()
 
     def activate_sub(self):
         new_file_name = self.filename[:-4] + "_temp.srt"
         with closing(File(new_file_name, 'w')) as fo:
             fo.write("".join(self.subtitlefile))
-        xbmc.Player().setSubtitles(new_file_name)
+        self.setSubtitles(new_file_name)
         xbmcgui.Dialog().ok(_(32122), _(32121))
 
     def onPlayBackPaused(self):
@@ -60,7 +60,7 @@ class PlayAlongFile(xbmc.Player):
                 self.delete_temp_file(True)
                 script.exiting(self.subtitlefile, self.filename)
             if not self.flag:
-                xbmc.Player().pause()
+                self.pause()
                 self.flag = True
 
     def onPlayBackStopped(self):

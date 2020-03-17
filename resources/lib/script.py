@@ -164,6 +164,14 @@ def decimal_timeline(timestring):
                     * int(timestring[3:5]) + 1000 * int(timestring[6:8]) + int(timestring[9:12]))
     return decimal_timestring
 
+def decimal_timeline_with_checker(timestring):
+    try:
+        decimal_timestring = (3600000 * int(timestring[:2]) + 60000
+                    * int(timestring[3:5]) + 1000 * int(timestring[6:8]) + int(timestring[9:12]))
+        return decimal_timestring
+    except:
+        return False
+
 def create_new_factor2(new_start_timestring, new_end_timestring, old_starting_time="", old_ending_time=""):
     new_start_time = decimal_timeline(new_start_timestring)
     new_ending_value = decimal_timeline(new_end_timestring)
@@ -242,30 +250,30 @@ def move_subtitle(subtitlefile, filename, menuchoice=""):
         #move forwards, move backwards, give new time, back
         menuchoice = xbmcgui.Dialog().contextmenu([_(32051), _(32052), _(32053),_(32005)])
     if menuchoice == 0:
-        try:
-            #Move forwards by:
-            timestring = xbmcgui.Dialog().input(_(32054))
-            movement = decimal_timeline(timestring)
+        #Move forwards by:
+        timestring = xbmcgui.Dialog().input(_(32054))        
+	movement = decimal_timeline_with_checker(timestring)
+        if movement:
             current_moving_sub = Subtitle(subtitlefile)
             subtitlefile = current_moving_sub.create_new_times(movement, None, None)
             # Succes, subs moved forward by
             xbmcgui.Dialog().ok(_(32017), _(32070).format(timestring))
-            show_dialog(subtitlefile, filename)
-        except:
+            show_dialog(subtitlefile, filename)        
+        else:
             # error, valid timecode
             xbmcgui.Dialog().ok(_(32014), _(32056))
-            move_subtitle(subtitlefile, filename)
+            move_subtitle(subtitlefile, filename)                 
     if menuchoice == 1:
-        try:
-            # Move backwards by:
-            timestring = xbmcgui.Dialog().input(_(32055))
-            movement = decimal_timeline(timestring)
+        # Move backwards by:
+        timestring = xbmcgui.Dialog().input(_(32055))
+        movement = decimal_timeline_with_checker(timestring)
+        if movement:           
             current_moving_sub1 = Subtitle(subtitlefile)
             subtitlefile = current_moving_sub1.create_new_times(movement*-1, None, None)
             #Succes, subs moved back by
             xbmcgui.Dialog().ok(_(32017), _(32071).format(timestring))
             show_dialog(subtitlefile, filename)
-        except:
+        else:
             #error, valid timecode
             xbmcgui.Dialog().ok(_(32014), _(32056))
             move_subtitle(subtitlefile, filename)
@@ -274,13 +282,15 @@ def move_subtitle(subtitlefile, filename, menuchoice=""):
         # timecode, write new timecode, for example
         xbmcgui.Dialog().ok(_(32068), _(32069))
         timestring = xbmcgui.Dialog().input(_(32029))
-        subtitlefile = current_start_sub.move_subtitles(timestring)
-        #Succes, First subs starts at
-        xbmcgui.Dialog().ok(_(32017), _(32072).format(timestring))
-        show_dialog(subtitlefile, filename)
-        # except:
-            # xbmcgui.Dialog().ok(_(32014), "Please enter valid timestring: HH:MM:SS:MSE")
-            # move_subtitle(subtitlefile, filename)
+        movement = decimal_timeline_with_checker(timestring)
+        if movement:
+            subtitlefile = current_start_sub.move_subtitles(timestring)
+            #Succes, First subs starts at
+            xbmcgui.Dialog().ok(_(32017), _(32072).format(timestring))
+            show_dialog(subtitlefile, filename)
+        else:
+            xbmcgui.Dialog().ok(_(32014), _(32056))
+            move_subtitle(subtitlefile, filename)
     if menuchoice == 3 or menuchoice == -1:
         show_dialog(subtitlefile, filename)
 
@@ -337,15 +347,15 @@ def stretch_subtitle(subtitlefile, filename):
     #Write new timestamp, for example
     xbmcgui.Dialog().ok(_(31001), _(32028))
     timestring = xbmcgui.Dialog().input(_(32029))
-    try:
+    movement = decimal_timeline_with_checker(timestring)
+    if movement:
         current_sub = Subtitle(subtitlefile)
         subtitlefile = current_sub.create_new_factor(timestring)
-    except:
-        xbmcgui.Dialog().ok(_(31001), _(32028))
+        xbmcgui.Dialog().ok(_(32017), _(33072).format(timestring))
         show_dialog(subtitlefile, filename)
-    # All subtitles
-    xbmcgui.Dialog().multiselect(_(32010), subtitlefile)
-    show_dialog(subtitlefile, filename)
+    else:
+        xbmcgui.Dialog().ok(_(32014), _(32056))
+        stretch_subtitle_menu(subtitlefile, filename)
 
 def make_timelines_classical(decimal):
     hours = int(decimal / 3600000)
@@ -478,7 +488,7 @@ def stretch_by_providing_factor(subtitlefile, filename):
     start_timestamp = make_timelines_classical(old_starting_time)
     old_timestamp = make_timelines_classical(old_ending_time)
     # New Ending, Starting time, Old ending time, New Ending time, Ok, Return
-    xbmcgui.Dialog().yesno(_(32107), _(32108) + str(start_timestamp) + "\n" +
+    xbmcgui.Dialog().yesno(_(32107), _(34108) + str(start_timestamp) + "\n" +
                                   _(32109) + str(old_timestamp) + "\n" +
                                   _(32110) + str(new_timestamp) + "\n", yeslabel=_(32012), nolabel= _(32008))
     new_subtitlefile = cur_sub.create_new_factor(new_timestamp, old_starting_time, old_ending_time)

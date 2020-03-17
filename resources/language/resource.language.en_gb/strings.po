@@ -371,6 +371,10 @@ msgctxt "#32072"
 msgid "First subtitle now starts at {}"
 msgstr ""
 
+msgctxt "#33072"
+msgid "Last subtitle now starts at {}"
+msgstr ""
+
 msgctxt "#32073"
 msgid " Paused at: "
 msgstr ""
@@ -516,11 +520,19 @@ msgid "New ending time"
 msgstr ""
 
 msgctxt "#32108"
+msgid "Old starting time: "
+msgstr ""
+
+msgctxt "#34108"
 msgid "Starting time: "
 msgstr ""
 
 msgctxt "#32109"
 msgid "Old ending time: "
+msgstr ""
+
+msgctxt "#34110"
+msgid "New starting time: "
 msgstr ""
 
 msgctxt "#32110"
@@ -577,4 +589,12 @@ msgstr ""
 
 msgctxt "#32123"
 msgid "The video is playing with the saved subtitle. The filename of the subtitle is: "
+msgstr ""
+
+msgctxt "#32124"
+msgid "Jump to time of current first subtitle"
+msgstr ""
+
+msgctxt "#32125"
+msgid "Jump to time of last subtitle"
 msgstr ""

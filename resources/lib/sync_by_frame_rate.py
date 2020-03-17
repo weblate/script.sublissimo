@@ -27,7 +27,7 @@ class SyncWizardFrameRate(xbmc.Player):
     def get_frame_rate(self):
         self.frame_rate = xbmc.getInfoLabel('Player.Process(VideoFPS)')
         xbmcgui.Dialog().ok(_(32106), _(32120) + str(self.frame_rate))
-        self.give_frame_rate()
+        self.give_frame_rate(True)
 
     def delete_temp_file(self):
         temp_file = self.filename[:-4] + "_temp.srt"
@@ -43,38 +43,41 @@ class SyncWizardFrameRate(xbmc.Player):
         with closing(File(new_file_name, 'w')) as fo:
             fo.write("".join(new_subtitlefile))
         self.new_subtitlefile = new_subtitlefile
-        xbmc.Player().setSubtitles(new_file_name)
+        self.setSubtitles(new_file_name)
         if temp:
             frame_rate_input = xbmcgui.Dialog().ok(_(32050),_(32102))
 
     def rearrange(self, new_factor, from_pause):
         if from_pause:
             self.flag = False
-            #xbmc.Player().pause()
         cur_sub = Subtitle(self.subtitlefile)
         old_starting_time, old_ending_time = cur_sub.make_timelines_decimal()
-        new_timestamp = script.make_timelines_classical(new_factor * old_ending_time)
-        start_timestamp = script.make_timelines_classical(old_starting_time)
-        old_timestamp = script.make_timelines_classical(old_ending_time)
-        res = xbmcgui.Dialog().yesno(_(32107), _(32108) + str(start_timestamp) + "\n" +
-                                      _(32109) + str(old_timestamp) + "\n" +
-                                      _(32110) + str(new_timestamp) + "\n", yeslabel=_(32012), nolabel= _(32008))
+        old_start_timestamp = script.make_timelines_classical(old_starting_time)
+        old_ending_timestamp = script.make_timelines_classical(old_ending_time)        
+        new_start_timestamp = script.make_timelines_classical(new_factor * old_starting_time)
+        new_ending_timestamp = script.make_timelines_classical(new_factor * old_ending_time)
+        res = xbmcgui.Dialog().yesno(_(32107), _(32108) + str(old_start_timestamp) 
+                                      + "\n" + _(32109) + str(old_ending_timestamp) 
+                                      + "\n" + _(34110) + str(new_start_timestamp) 
+                                      + "\n" + _(32110) + str(new_ending_timestamp) 
+                                      + "\n", yeslabel=_(32012), nolabel= _(32008))
         if not res:
             self.give_frame_rate()
-        new_subtitlefile = cur_sub.create_new_factor(new_timestamp, old_starting_time, old_ending_time)
+        new_subtitlefile = cur_sub.create_new_times(False, new_factor, 0)
+        xbmcgui.Dialog().multiselect(_(32010), new_subtitlefile)
         self.write_and_display_temp_file(new_subtitlefile, True)
 
     def give_frame_rate(self, from_pause):
         # get frame_rate from video, calculate manually,  Exit to main menu,
-        options = ["23.975 --> 25.000", "25.000 --> 23.975", "24.000 --> 25.000", "25.000 --> 24.000",
-                   "23.975 --> 24.000", "24.000 --> 23.975", _(32104), _(32112), _(32078)]
+        options = ["23.976 --> 25.000", "25.000 --> 23.976", "24.000 --> 25.000", "25.000 --> 24.000",
+                   "23.976 --> 24.000", "24.000 --> 23.976", _(32104), _(32112), _(32078)]
         # Video frame rate
         menuchoice = xbmcgui.Dialog().select(_(32105), options)
         if menuchoice == 0:
-            chosen_factor = (25/23.975)
+            chosen_factor = (25/23.976)
             self.rearrange(chosen_factor, from_pause)
         if menuchoice == 1:
-            chosen_factor = (23.975/25)
+            chosen_factor = (23.976/25)
             self.rearrange(chosen_factor, from_pause)
         if menuchoice == 2:
             chosen_factor = (25/24)
@@ -83,10 +86,10 @@ class SyncWizardFrameRate(xbmc.Player):
             chosen_factor = (24/25)
             self.rearrange(chosen_factor, from_pause)
         if menuchoice == 4:
-            chosen_factor = (24/23.975)
+            chosen_factor = (24/23.976)
             self.rearrange(chosen_factor, from_pause)
         if menuchoice == 5:
-            chosen_factor = (23.975/24)
+            chosen_factor = (23.976/24)
             self.rearrange(chosen_factor, from_pause)
         if menuchoice == 6:
             self.get_frame_rate()
@@ -96,7 +99,7 @@ class SyncWizardFrameRate(xbmc.Player):
             calculated_factor = eval(str(response))
             self.rearrange(calculated_factor, from_pause)
         if menuchoice == 8 or menuchoice == -1:
-            xbmc.Player().stop()
+            self.stop()
             script.show_dialog(self.subtitlefile, self.filename)
 
     def onPlayBackPaused(self):
@@ -117,7 +120,7 @@ class SyncWizardFrameRate(xbmc.Player):
                 script.save_the_file(self.new_subtitlefile, self.filename, True)
             if choice == 4:
                 self.proper_exit = True
-                xbmc.Player().stop()
+                self.stop()
                 if self.new_subtitlefile:
                     self.delete_temp_file()
                     script.show_dialog(self.new_subtitlefile, self.filename)
@@ -127,10 +130,10 @@ class SyncWizardFrameRate(xbmc.Player):
             if choice == 5:
                 self.proper_exit = True
                 self.delete_temp_file()
-                xbmc.Player().stop()
+                self.stop()
                 script.show_dialog(self.subtitlefile, self.filename)
             if not self.flag:
-                xbmc.Player().pause()
+                self.pause()
                 self.flag = True
 
     def onPlayBackStopped(self):
@@ -148,7 +151,6 @@ class SyncWizardFrameRate(xbmc.Player):
                 #self.write_and_display_temp_file(self.new_subtitlefile, False)
             if choice == 2 or choice == -1:
                 self.delete_temp_file()
-                #xbmc.Player().stop()
                 self.proper_exit = True
                 script.show_dialog(self.subtitlefile, self.filename)
             if choice == 3:
