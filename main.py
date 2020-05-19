@@ -10,5 +10,3 @@ import sys
 ADDON = xbmcaddon.Addon()
 
 script.show_dialog()
-
-

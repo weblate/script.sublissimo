@@ -2,10 +2,9 @@
 import xbmc
 import xbmcgui
 import sys
-import script
 import xbmcaddon
 import logging
-from script import *
+from . import script
 
 ADDON = xbmcaddon.Addon()
 __addon__     = xbmcaddon.Addon()
@@ -91,7 +90,7 @@ class SyncWizard(xbmc.Player) :
                     start_timestring = self.subtitlefile[start_index+1][:12]
                     start_timestring_decimal = script.decimal_timeline(start_timestring)
                     self.seekTime(start_timestring_decimal/1000)
-                    self.flag = False 
+                    self.flag = False
                     self.pause()
                 if res == 5:
                     start_index, end_index = self.select_line_subtitle(True, False)
@@ -148,7 +147,7 @@ class SyncWizard(xbmc.Player) :
                     if res == 5:
                         self.starting_time = None
                         self.pause()
-                        self.pause() 
+                        self.pause()
                     if res == 0 or res == -1:
                         self.pause()
                     if res == 6:
@@ -170,3 +169,15 @@ class SyncWizard(xbmc.Player) :
             if self.ending_time and self.starting_time:
                 self.stop()
                 self.send_times()
+
+    def onPlayBackStopped(self):
+        if self.proper_exit:
+            pass
+        else:
+            script.show_dialog(self.subtitlefile, self.filename)
+
+    def onPlayBackEnded(self):
+        if self.proper_exit:
+            pass
+        else:
+            script.show_dialog(self.subtitlefile, self.filename)
