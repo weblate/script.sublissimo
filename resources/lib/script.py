@@ -213,12 +213,8 @@ def synchronize_with_other_subtitle(subtitlefile, filename, fail=False):
         xbmcgui.Dialog().ok(_(32014), _(32016))
         synchronize_with_other_subtitle(subtitlefile, filename, True)
     try:
-        syncf = xbmcvfs.File(sync_filename)
-        syncflines = syncf.read().split("\n")
-        sync_subtitlefile = [sentence+"\n" for sentence in syncflines]
+        sync_subtitlefile, not_important = read_file(sync_filename, False)
     except:
-        #Error, file not found
-        xbmcgui.Dialog().ok(_(32014), _(32059))
         show_dialog(subtitlefile, filename)
 
     starting_line, start_textline  = check_timecode(None, sync_subtitlefile, filename, _(32063))
@@ -392,7 +388,7 @@ def retrieve_video(subtitlefile, filename):
         location = xbmcgui.Dialog().browse(1, _(32020), 'video', '', False, False, pos_locations[choice])
         if location in pos_locations:
             show_dialog(subtitlefile, filename)
-        videodbfilename = location    
+        videodbfilename = location
     else:
         choice = xbmcgui.Dialog().contextmenu([_(32116) , _(32093), _(32094), _(32095), _(32005)])
         if choice == 4 or choice == -1:
@@ -418,9 +414,7 @@ def sync_with_video(subtitlefile, filename):
     xbmcPlayer = SyncWizard()
     xbmcPlayer.add(subtitlefile, filename)
     xbmcPlayer.play(location)
-    xbmc.sleep(500)
-    while xbmcPlayer.isPlaying():
-        xbmc.sleep(500)
+    xbmc.Monitor().waitForAbort()
 
 def check_integrity_menu(subtitlefile, filename):
     subtitlefile, problems = check_integrity(subtitlefile)
@@ -434,25 +428,27 @@ def check_integrity_menu(subtitlefile, filename):
         xbmcgui.Dialog().ok(_(32033), report)
     show_dialog(subtitlefile, filename)
 
-def load_subtitle():
+
+def read_file(filename, backup):
     global backupfile
-    #Sublissimo, select sub, select sub
-    xbmcgui.Dialog().ok(_(31001), _(32034))
-    filename = xbmcgui.Dialog().browse(1, _(32035), 'video')
-    if filename == "":
-        sys.exit()
-    if filename[-3:] == 'sub':
-        load_sub_subtitlefile(filename)
-    if filename[-3:] != 'srt':
-        # Error, only .srt files
-        xbmcgui.Dialog().ok(_(32014), _(32026))
-        sys.exit()
-    f = xbmcvfs.File(filename)
     try:
+        f = xbmcvfs.File(filename)
         b = f.read().split("\n")
+        subtitlefile = [sentence+"\n" for sentence in b]
+        if backup:
+            backupfile = copy.deepcopy(subtitlefile)
+        f.close()
+        return subtitlefile, filename
     except UnicodeDecodeError:
         try:
-            b = open(filename, encoding='utf-8', errors='ignore')
+            with closing(xbmcvfs.File(filename)) as fo:
+                byte_string = bytes(fo.readBytes())
+                text_string = byte_string.decode('utf-8', errors='ignore')
+            b = text_string.split("\n")
+            subtitlefile = [sentence+"\n" for sentence in b]
+            if backup:
+                backupfile = copy.deepcopy(subtitlefile)
+            return subtitlefile, filename
         except:
             # Error, file not found
             xbmcgui.Dialog().ok(_(32014), _(32027) + filename)
@@ -462,9 +458,22 @@ def load_subtitle():
         xbmcgui.Dialog().ok(_(32014), _(32027) + filename)
         sys.exit()
 
-    subtitlefile = [sentence+"\n" for sentence in b]
-    backupfile = copy.deepcopy(subtitlefile)
+def load_subtitle(with_warning):
+    #Sublissimo, select sub, select sub
+    if with_warning:
+        xbmcgui.Dialog().ok(_(31001), _(32034))
+    filename = xbmcgui.Dialog().browse(1, _(32035), 'video')
+    if filename == "":
+        sys.exit()
+    if filename[-3:] == 'sub':
+        load_sub_subtitlefile(filename)
+    if filename[-3:] != 'srt':
+        # Error, only .srt files
+        xbmcgui.Dialog().ok(_(32014), _(32026))
+        load_subtitle(False)
+    subtitlefile, filename = read_file(filename, True)
     return subtitlefile, filename
+
 
 def synchronize_by_frame_rate(subtitlefile, filename):
     location = retrieve_video(subtitlefile, filename)
@@ -472,20 +481,16 @@ def synchronize_by_frame_rate(subtitlefile, filename):
     newplayer.add(subtitlefile, filename)
     newplayer.play(location)
     newplayer.give_frame_rate(False)
-    xbmc.sleep(500)
-    while newplayer.isPlaying():
-        xbmc.sleep(500)
+    xbmc.Monitor().waitForAbort()
 
 def play_along_file(subtitlefile, filename):
     location = retrieve_video(subtitlefile, filename)
     newplayer = PlayAlongFile()
     newplayer.add(subtitlefile, filename)
-
     newplayer.play(location)
     xbmc.sleep(500)
     newplayer.activate_sub()
-    while newplayer.isPlaying():
-        xbmc.sleep(500)
+    xbmc.Monitor().waitForAbort()
 
 def stretch_by_providing_factor(subtitlefile, filename):
     try:
@@ -549,8 +554,7 @@ def search_frame_rate(subtitlefile, filename):
         create_new_sub(subtitlefile, filename, frame_rate)
     else:
         load_sub_subtitlefile(filename)
-    while newplayer.isPlaying():
-        xbmc.sleep(500)
+    xbmc.Monitor().waitForAbort()
 
 def recreate_line(line, frame_rate, line_number):
     startline_index = line.find("{")
@@ -566,9 +570,7 @@ def recreate_line(line, frame_rate, line_number):
 
 def load_sub_subtitlefile(filename="", subtitlefile=[]):
     if not subtitlefile:
-        f = xbmcvfs.File(filename)
-        b = f.read().split("\n")
-        subtitlefile = [sentence+"\n" for sentence in b]
+        subtitlefile, not_important = read_file(filename, False)
     options = ["23.976", "24", "25", "29.976", "30", _(32127), _(32104), _(32129)]
     menuchoice = xbmcgui.Dialog().select(_(32105), options)
     if menuchoice == 5:
@@ -584,7 +586,7 @@ def load_sub_subtitlefile(filename="", subtitlefile=[]):
         if response:
             load_sub_subtitlefile(filename, subtitlefile)
         else:
-            load_subtitle()
+            load_subtitle(False)
     else:
         try:
             frame_rate = float(options[menuchoice])
@@ -608,7 +610,7 @@ def create_new_sub(subtitlefile, filename, frame_rate):
 
 def show_dialog(subtitlefile="", filename=""):
     if not subtitlefile:
-        subtitlefile, filename = load_subtitle()
+        subtitlefile, filename = load_subtitle(True)
     #Scroll, edit, move, stretch, syncwsub, syncwvideo, playalong, advanced, save, quit
     options = [_(31000), _(30001), _(31002), _(31003), _(31004), _(31005),
                _(31010), _(31011), _(31013), _(31008), _(31009)]
