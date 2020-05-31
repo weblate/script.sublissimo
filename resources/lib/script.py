@@ -93,7 +93,8 @@ def search_subtitles(subtitlefile, filename):
     results = []
     for index, lines in enumerate(subtitlefile):
         if searchstring in lines:
-            results += [index-3, index-2, index-1, index, index+1]
+            area = [x for x in [index-3, index-2, index-1, index, index+1] if x > 0 and x < len(subtitlefile)]
+            results += area
     structured_results = [str(_(33032)) + str(x).zfill(4) + " | "
                                 + subtitlefile[x] for x in sorted(set(results))]
     xbmcgui.Dialog().select(_(32011), structured_results)
@@ -252,7 +253,7 @@ def move_subtitle(subtitlefile, filename, menuchoice=""):
     if menuchoice == 0:
         #Move forwards by:
         timestring = xbmcgui.Dialog().input(_(32054))        
-	movement = decimal_timeline_with_checker(timestring)
+        movement = decimal_timeline_with_checker(timestring)
         if movement:
             current_moving_sub = Subtitle(subtitlefile)
             subtitlefile = current_moving_sub.create_new_times(movement, None, None)
@@ -389,9 +390,10 @@ def retrieve_video(subtitlefile, filename):
             show_dialog(subtitlefile, filename)
         pos_locations = ["videodb://movies/titles/", "videodb://tvshows/titles/", "videodb://"]
         location = xbmcgui.Dialog().browse(1, _(32020), 'video', '', False, False, pos_locations[choice])
-        videodbfilename = location
-        if location == "videodb://":
+        if location in pos_locations:
             show_dialog(subtitlefile, filename)
+        videodbfilename = location
+
     else:
         choice = xbmcgui.Dialog().contextmenu([_(32116) , _(32093), _(32094), _(32095), _(32005)])
         if choice == 4 or choice == -1:
@@ -401,9 +403,9 @@ def retrieve_video(subtitlefile, filename):
             location = videodbfilename
         else:
             location = xbmcgui.Dialog().browse(1, _(32020), 'video', '', False, False, pos_locations[choice])
-            videodbfilename = location
-        if location == "videodb://":
+        if location in pos_locations[1:]:
             show_dialog(subtitlefile, filename)
+        videodbfilename = location
     return location
 
 def sync_with_video(subtitlefile, filename):
@@ -481,7 +483,7 @@ def stretch_by_providing_factor(subtitlefile, filename):
     try:
         # Provide Factor
         response = xbmcgui.Dialog().input(_(32117))
-    	new_factor = float(response)
+        new_factor = float(response)
     except:
         return stretch_by_providing_factor(subtitlefile, filename)
     cur_sub = Subtitle(subtitlefile)
