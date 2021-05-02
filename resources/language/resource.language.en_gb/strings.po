@@ -702,3 +702,11 @@ msgstr ""
 msgctxt "#35008"
 msgid "Play with "
 msgstr ""
+
+msgctxt "#35009"
+msgid "Edit and synchronize subtitles with your remote"
+msgstr ""
+
+msgctxt "#35010"
+msgid "With this script you can edit specific lines, move or stretch subtitles, and synchronize with other subtitles. You can also synchronize with a videofile."
+msgstr ""
