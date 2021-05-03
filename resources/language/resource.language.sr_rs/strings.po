@@ -11,8 +11,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
-"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
+"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
 
 msgctxt "#31000"
 msgid "Scroll subtitles"
@@ -71,7 +70,7 @@ msgid "Sublissimo"
 msgstr ""
 
 msgctxt "#33000"
-msgid "Select the subtitle to synchronize with. Then:\n- Select a timecode in the beginning to a line as reference\n- Select the roughly the same line in your subtitle\n- Then do same with two lines near the end of both files."
+msgid "Select the subtitle to synchronize with. Then:[CR]- Select a timecode in the beginning to a line as reference[CR]- Select the roughly the same line in your subtitle[CR]- Then do same with two lines near the end of both files."
 msgstr ""
 
 msgctxt "#32001"
@@ -251,7 +250,7 @@ msgid "Written to: "
 msgstr ""
 
 msgctxt "#32044"
-msgid "\nTo use the file, select it in the Kodi player subtitle menu when playing the file"
+msgid "To use the file, select it in the Kodi player subtitle menu when playing the file"
 msgstr ""
 
 msgctxt "#32045"
@@ -307,7 +306,7 @@ msgid "How to sync two subtitles"
 msgstr ""
 
 msgctxt "#32058"
-msgid "In order to synchronize, you will need a subtitle which matches the video perfectly, but has different subtitles, usually from a different language. In the next slide, first select this subtitle.\n\nThen, you'll be asked to select a timecode in this file, which will be used as reference. Ideally, it is the first spoken line from the video. In the next screen, select the line from your original subtitle which matches the first.\n\nSubsequently, you'll be asked again to select a line from your reference subtitle and to match this with the same line in your original subtitle. Usually the best choice is the last spoken line from the video. After this your two subtitles will sync!\n\nCheck 'Scroll subtitles' to view them and 'Save subtitles' to write them to a file."
+msgid "In order to synchronize, you will need a subtitle which matches the video perfectly, but has different subtitles, usually from a different language. In the next slide, first select this subtitle.[CR][CR]Then, you'll be asked to select a timecode in this file, which will be used as reference. Ideally, it is the first spoken line from the video. In the next screen, select the line from your original subtitle which matches the first.[CR][CR]Subsequently, you'll be asked again to select a line from your reference subtitle and to match this with the same line in your original subtitle. Usually the best choice is the last spoken line from the video. After this your two subtitles will sync![CR][CR]Check 'Scroll subtitles' to view them and 'Save subtitles' to write them to a file."
 msgstr ""
 
 msgctxt "#32059"
@@ -323,7 +322,7 @@ msgid "How to sync with a video file"
 msgstr ""
 
 msgctxt "#32062"
-msgid "In the next screen, open the videofile from the library which belongs to the subtitle you have opened. Skip or fast forward to the point where the subtitle should roughly be placed. Pause. \n\nWhen you paused the video, a menu will pop up with several options. Select 'View or edit first subtitle'. When your first subtitle is not the first line from the video, select 'Delete' until the first subtitle is also the first line from the video. \n\nThen finetune the position of the video, possibly by using the 'Skip forward 1 second' or 'Skip backward 1 second' buttons. If the position is perfect, choose 'Select as start'. \nNow fast forward to the end of the video, and repeat the same process. \n\nAfter this, your file will be synced to the video."
+msgid "In the next screen, open the videofile from the library which belongs to the subtitle you have opened. Skip or fast forward to the point where the subtitle should roughly be placed. Pause.[CR][CR]When you paused the video, a menu will pop up with several options. Select 'View or edit first subtitle'. When your first subtitle is not the first line from the video, select 'Delete' until the first subtitle is also the first line from the video.[CR][CR]Then finetune the position of the video, possibly by using the 'Skip forward 1 second' or 'Skip backward 1 second' buttons. If the position is perfect, choose 'Select as start'.[CR]Now fast forward to the end of the video, and repeat the same process.[CR][CR]After this, your file will be synced to the video."
 msgstr ""
 
 msgctxt "#32063"
@@ -435,7 +434,7 @@ msgid "Your first subtitle starts at: "
 msgstr ""
 
 msgctxt "#32088"
-msgid "Your last subtitle starts at:  "
+msgid "Your last subtitle starts at: "
 msgstr ""
 
 msgctxt "#32089"
@@ -455,7 +454,7 @@ msgid "Select a line with a timecode"
 msgstr ""
 
 msgctxt "#32092"
-msgid "Please select a line with a timecode, like: \n'01:23:45,679 --> 01:23:45,679'"
+msgid "Please select a line with a timecode, like:[CR]'01:23:45,679 --> 01:23:45,679'"
 msgstr ""
 
 msgctxt "#32093"
