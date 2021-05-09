@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: XBMC Addons\n"
 "POT-Creation-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"PO-Revision-Date: 2021-05-03 09:27+0000\n"
+"PO-Revision-Date: 2021-05-09 07:29+0000\n"
 "Last-Translator: Christian Gade <gade@kodi.tv>\n"
 "Language-Team: Danish <https://kodi.weblate.cloud/projects/kodi-add-ons-scripts/script-sublissimo/da_dk/>\n"
 "Language: da_dk\n"
@@ -14,7 +14,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.6.1\n"
+"X-Generator: Weblate 4.6.2\n"
 
 msgctxt "#31000"
 msgid "Scroll subtitles"
@@ -22,35 +22,35 @@ msgstr ""
 
 msgctxt "#30001"
 msgid "Edit or delete lines"
-msgstr ""
+msgstr "Rediger eller slet linjer"
 
 msgctxt "#31002"
 msgid "Move subtitles"
-msgstr ""
+msgstr "Flyt undertekster"
 
 msgctxt "#31003"
 msgid "Stretch/shrink subtitles"
-msgstr ""
+msgstr "Stræk/formindsk undertekster"
 
 msgctxt "#31004"
 msgid "Synchronize with other subtitle"
-msgstr ""
+msgstr "Synkroniser med anden undertekst"
 
 msgctxt "#31005"
 msgid "Synchronize with video file"
-msgstr ""
+msgstr "Synkroniser med videofil"
 
 msgctxt "#31006"
 msgid "Search in subtitle"
-msgstr ""
+msgstr "Søg i undertekst"
 
 msgctxt "#31007"
 msgid "Check integrity"
-msgstr ""
+msgstr "Check integritet"
 
 msgctxt "#31008"
 msgid "Save subtitles"
-msgstr ""
+msgstr "Gem undertekster"
 
 msgctxt "#31009"
 msgid "Quit"
@@ -58,35 +58,35 @@ msgstr "Afslut"
 
 msgctxt "#31010"
 msgid "Synchronize by frame rate"
-msgstr ""
+msgstr "Synkroniser med billedhastighed"
 
 msgctxt "#31011"
 msgid "Play video with edited subtitle"
-msgstr ""
+msgstr "Afspil video med redigeret undertekst"
 
 msgctxt "#31013"
 msgid "Advanced options"
-msgstr ""
+msgstr "Avancerede indstillinger"
 
 msgctxt "#31001"
 msgid "Sublissimo"
-msgstr ""
+msgstr "Sublissimo"
 
 msgctxt "#33000"
 msgid "Select the subtitle to synchronize with. Then:[CR]- Select a timecode in the beginning to a line as reference[CR]- Select the roughly the same line in your subtitle[CR]- Then do same with two lines near the end of both files."
-msgstr ""
+msgstr "Vælg underteksten der synkroniseres med. Derefter:[CR]- Vælg en tidskode i begyndelsen af en linje som reference[CR]- Vælg nogenlunde den samme linje i din undertekst[CR]- Gør derefter det samme med to linjer nær slutningen af begge filer."
 
 msgctxt "#32001"
 msgid "Edit line"
-msgstr ""
+msgstr "Rediger linje"
 
 msgctxt "#32002"
 msgid "Delete First Subtitle"
-msgstr ""
+msgstr "Slet første undertekst"
 
 msgctxt "#32003"
 msgid "Delete Last Subtitle"
-msgstr ""
+msgstr "Slet sidste undertekst"
 
 msgctxt "#32004"
 msgid "Manually Scroll and Delete"
@@ -94,15 +94,15 @@ msgstr ""
 
 msgctxt "#32005"
 msgid "Back"
-msgstr ""
+msgstr "Tilbage"
 
 msgctxt "#32006"
 msgid "Delete this subtitle?"
-msgstr ""
+msgstr "Slet denne undertekst?"
 
 msgctxt "#32007"
 msgid "Select subtitle to edit"
-msgstr ""
+msgstr "Vælg undertekst der redigeres"
 
 msgctxt "#32008"
 msgid "Return"
@@ -110,71 +110,71 @@ msgstr ""
 
 msgctxt "#32009"
 msgid "Delete"
-msgstr ""
+msgstr "Slet"
 
 msgctxt "#32010"
 msgid "All subtitles"
-msgstr ""
+msgstr "Alle undertekster"
 
 msgctxt "#32011"
 msgid "Found:"
-msgstr ""
+msgstr "Fundet:"
 
 msgctxt "#32012"
 msgid "OK"
-msgstr ""
+msgstr "OK"
 
 msgctxt "#32013"
 msgid "More Info"
-msgstr ""
+msgstr "Yderligere info"
 
 msgctxt "#32014"
 msgid "Error"
-msgstr ""
+msgstr "Fejl"
 
 msgctxt "#32015"
 msgid "Select subtitle to synchronize with"
-msgstr ""
+msgstr "Vælg undertekst der synkroniseres med"
 
 msgctxt "#32016"
 msgid "Please select a .srt or a .sub file"
-msgstr ""
+msgstr "Vælg venligst en .srt eller .sub fil"
 
 msgctxt "#32017"
 msgid "Success"
-msgstr ""
+msgstr "Succes"
 
 msgctxt "#32018"
 msgid "Current first subtitle"
-msgstr ""
+msgstr "Nuværende første undertekst"
 
 msgctxt "#32019"
 msgid "First subtitle is now:"
-msgstr ""
+msgstr "Første undertekst er nu:"
 
 msgctxt "#32020"
 msgid "Please select a video file."
-msgstr ""
+msgstr "Vælg venligst en videofil."
 
 msgctxt "#32021"
 msgid "Current last subtitle"
-msgstr ""
+msgstr "Nuværende sidste undertekst"
 
 msgctxt "#32022"
 msgid "Last subtitle is now:"
-msgstr ""
+msgstr "Sidste undertekst er nu:"
 
 msgctxt "#32023"
 msgid "Enter search string"
-msgstr ""
+msgstr "Indtast søgeord"
 
 msgctxt "#32024"
 msgid "Yes"
-msgstr ""
+msgstr "Ja"
 
 msgctxt "#32025"
 msgid "No"
-msgstr ""
+msgstr "Nej"
 
 msgctxt "#32026"
 msgid "This editor only works with .srt or .sub files"
@@ -182,7 +182,7 @@ msgstr ""
 
 msgctxt "#32027"
 msgid "File not found: "
-msgstr ""
+msgstr "Fil ikke fundet: "
 
 msgctxt "#32028"
 msgid "Write the new timestamp for the end position, seperated by a ':'. For instance: 01:22:23:000"
@@ -190,7 +190,7 @@ msgstr ""
 
 msgctxt "#32029"
 msgid "For example: 01:22:23:000"
-msgstr ""
+msgstr "For eksempel: 01:22:23:000"
 
 msgctxt "#32030"
 msgid "Report"
@@ -202,43 +202,43 @@ msgstr ""
 
 msgctxt "#32032"
 msgid "Line:"
-msgstr ""
+msgstr "Linje:"
 
 msgctxt "#33032"
 msgid "Line "
-msgstr ""
+msgstr "Linje "
 
 msgctxt "#32033"
 msgid "Possible problems: "
-msgstr ""
+msgstr "Mulige problemer: "
 
 msgctxt "#32034"
 msgid "Select subtitle to continue..."
-msgstr ""
+msgstr "Vælg undertekst for at fortsætte..."
 
 msgctxt "#32035"
 msgid "Select subtitle to edit"
-msgstr ""
+msgstr "Vælg undertekst der redigeres"
 
 msgctxt "#32036"
 msgid "Your subtitle starts at "
-msgstr ""
+msgstr "Din undertekst starter ved "
 
 msgctxt "#32037"
 msgid "Your subtitle ends at "
-msgstr ""
+msgstr "Din undertekst ender ved "
 
 msgctxt "#32038"
 msgid "Save with _edited.srt added"
-msgstr ""
+msgstr "Gemt med _edited.srt tilføjet"
 
 msgctxt "#32039"
 msgid "Save with current filename"
-msgstr ""
+msgstr "Gem med nuværende filnavn"
 
 msgctxt "#32040"
 msgid "Save with custom filename"
-msgstr ""
+msgstr "Gem med brugerdefineret filnavn"
 
 msgctxt "#32041"
 msgid "Exit without saving"
@@ -246,11 +246,11 @@ msgstr ""
 
 msgctxt "#32042"
 msgid "Give new filename: "
-msgstr ""
+msgstr "Indtast nyt filnavn: "
 
 msgctxt "#32043"
 msgid "Written to: "
-msgstr ""
+msgstr "Skrevet til: "
 
 msgctxt "#32044"
 msgid "To use the file, select it in the Kodi player subtitle menu when playing the file"
@@ -262,7 +262,7 @@ msgstr ""
 
 msgctxt "#32046"
 msgid "Warning"
-msgstr ""
+msgstr "Advarsel"
 
 msgctxt "#32047"
 msgid "You might have unsaved progress on your file"
@@ -274,7 +274,7 @@ msgstr ""
 
 msgctxt "#32049"
 msgid "Save"
-msgstr ""
+msgstr "Gem"
 
 msgctxt "#32050"
 msgid "Subtitles succesfully synced"
@@ -314,7 +314,7 @@ msgstr ""
 
 msgctxt "#32059"
 msgid "File not found"
-msgstr ""
+msgstr "Fil ikke fundet"
 
 msgctxt "#32060"
 msgid "In the next screen, select the video to synchronize with. Go to the point in the video where the first subtitle starts. When you pause the video, choose 'Select as start' in the menu, then do the same with the last subtitle."
