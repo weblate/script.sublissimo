@@ -726,6 +726,7 @@ def check_player_instances(filename=""):
     if player_instances:
         for instance in player_instances:
             instance.proper_exit = True
+
     temp_file = filename[:-4] + "_temp.srt"
     if xbmcvfs.exists(temp_file):
         xbmcvfs.delete(temp_file)

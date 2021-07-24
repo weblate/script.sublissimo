@@ -2,18 +2,16 @@
 # Addon Name: Sublissimo
 # Addon id: script.sublissimo
 # Addon Provider: AJVM
-
 msgid ""
 msgstr ""
-
 "Project-Id-Version: XBMC Addons\n"
 "POT-Creation-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Language: el_gr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: en\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
 
 msgctxt "#31000"
 msgid "Scroll subtitles"
@@ -709,28 +707,4 @@ msgstr ""
 
 msgctxt "#35010"
 msgid "With this script you can edit specific lines, move or stretch subtitles, and synchronize with other subtitles. You can also synchronize with a videofile."
-msgstr ""
-
-msgctxt "#35011"
-msgid "Return to Menu"
-msgstr ""
-
-msgctxt "#35016"
-msgid "Somewhere in the process of syncing an error occurred. Most of the time this is caused by:[CR] - A .srt file which uses non-standard timestamps.[CR] - A .srt file which has a digit missing in one of its timestamps.[CR] - A file which is not an actual .srt file[CR][CR]Use Main Menu -> Advanced Options -> Check Integrity to scan for faulty timestamps or use a different .srt file."
-msgstr ""
-
-msgctxt "#35012"
-msgid "The following error has occurred:"
-msgstr ""
-
-msgctxt "#35013"
-msgid "Details of Error"
-msgstr ""
-
-msgctxt "#35017"
-msgid "Characterset not detected"
-msgstr ""
-
-msgctxt "#35018"
-msgid "The correct characterset of this file could not be detected. The file is now loading with the UTF-8 set and errors are replaced with questionmarks."
 msgstr ""
