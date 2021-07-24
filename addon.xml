@@ -8,8 +8,6 @@
 	<provides>executable</provides>
     </extension>
     <extension point="xbmc.addon.metadata">
-        <summary lang="en_GB">Edit and synchronize subtitles with your remote</summary>
-        <description lang="en_GB">With this script you can edit specific lines, move or stretch subtitles, and synchronize with other subtitles. You can also synchronize with a videofile.</description>
         <platform>all</platform>
         <license>MIT</license>
         <email>drinkblacklabel@gmail.com</email>
@@ -27,5 +25,7 @@
             <icon>resources/icon.png</icon>
             <fanart>resources/fanart.jpg</fanart>
         </assets>
+        <summary lang="en_GB">Edit and synchronize subtitles with your remote</summary>
+        <description lang="en_GB">With this script you can edit specific lines, move or stretch subtitles, and synchronize with other subtitles. You can also synchronize with a videofile.</description>
     </extension>
 </addon>
