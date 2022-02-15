@@ -941,13 +941,3 @@ msgstr ""
 msgctxt "#35050"
 msgid "Do you want: [CR]{}[CR]To appear at {}?"
 msgstr ""
-
-msgctxt "Addon Summary"
-msgid "Edit and synchronize subtitles with your remote"
-msgstr ""
-
-msgctxt "Addon Description"
-msgid ""
-"With this script you can edit specific lines, move or stretch subtitles, and "
-"synchronize with other subtitles. You can also synchronize with a videofile."
-msgstr ""
