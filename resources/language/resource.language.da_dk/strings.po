@@ -23,11 +23,7 @@ msgid "Edit and synchronize subtitles with your remote"
 msgstr ""
 
 msgctxt "Addon Description"
-msgid ""
-"With this script you can edit specific lines, move or stretch subtitles, and "
-"synchronize with other subtitles. You can also synchronize with a videofile."
-"[CR][CR]To easily use this editor, launch it when the video and subtitle you "
-"wish to edit are playing."
+msgid "With this script you can edit specific lines, move or stretch subtitles, and synchronize with other subtitles. You can also synchronize with a videofile.[CR][CR]To easily use this editor, launch it when the video and subtitle you wish to edit are playing."
 msgstr ""
 
 msgctxt "#31000"
