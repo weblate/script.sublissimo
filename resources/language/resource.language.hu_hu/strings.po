@@ -5,13 +5,17 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: XBMC Addons\n"
+"Report-Msgid-Bugs-To: translations@kodi.tv\n"
 "POT-Creation-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"PO-Revision-Date: 2022-03-27 01:17+0000\n"
+"Last-Translator: Christian Gade <gade@kodi.tv>\n"
+"Language-Team: Hungarian <https://kodi.weblate.cloud/projects/kodi-add-ons-scripts/script-sublissimo/hu_hu/>\n"
 "Language: hu_hu\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 4.11.2\n"
 
 msgctxt "Addon Summary"
 msgid "Edit and synchronize subtitles with your remote"
@@ -102,7 +106,7 @@ msgstr ""
 
 msgctxt "#32005"
 msgid "Back"
-msgstr ""
+msgstr "Vissza"
 
 msgctxt "#32006"
 msgid "Delete this subtitle?"
@@ -118,7 +122,7 @@ msgstr ""
 
 msgctxt "#32009"
 msgid "Delete"
-msgstr ""
+msgstr "Törlés"
 
 msgctxt "#32010"
 msgid "All subtitles"
@@ -138,7 +142,7 @@ msgstr ""
 
 msgctxt "#32014"
 msgid "Error"
-msgstr ""
+msgstr "Hiba"
 
 msgctxt "#32015"
 msgid "Select subtitle to synchronize with"
@@ -174,15 +178,15 @@ msgstr ""
 
 msgctxt "#32023"
 msgid "Enter search string"
-msgstr ""
+msgstr "Adja meg a keresendő szöveget/szövegrészt"
 
 msgctxt "#32024"
 msgid "Yes"
-msgstr ""
+msgstr "Igen"
 
 msgctxt "#32025"
 msgid "No"
-msgstr ""
+msgstr "Nem"
 
 msgctxt "#32026"
 msgid "This editor only works with .srt or .sub files"
@@ -286,7 +290,7 @@ msgstr ""
 
 msgctxt "#32049"
 msgid "Save"
-msgstr ""
+msgstr "Mentés"
 
 msgctxt "#32050"
 msgid "Subtitles succesfully synced"
