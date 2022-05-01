@@ -14,7 +14,7 @@ def sync_with_other_subtitle(subtitle):
     if resp:
         xbmcgui.Dialog().textviewer(_(32057), _(32058))
     sync_filename = xbmcgui.Dialog().browse(1, _(32035), 'video', ".srt|.sub")
-    sync_subtitle = loadfile.loader(sync_filename)
+    sync_subtitle = loadfile.loader(sync_filename, for_sync=True)
     if not sync_subtitle:
         script.show_dialog(subtitle)
     subtitle_per_line, indexes = subtitle.easy_list_selector()
@@ -27,7 +27,6 @@ def sync_with_other_subtitle(subtitle):
                            sync_indexes[first_sync_sub], sync_indexes[last_sync_sub])
     xbmcgui.Dialog().ok(_(32017), _(32050))
     script.show_dialog(subtitle)
-
 
 def sync_helper(subtitle, headline, sub_per_line, indexes):
     index = xbmcgui.Dialog().select(headline, sub_per_line)

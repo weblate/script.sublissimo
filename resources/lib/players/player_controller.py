@@ -26,10 +26,10 @@ class PlayerInstance:
     def __new__(cls):
         if not hasattr(cls, "instance"):
             cls.instance = super(PlayerInstance, cls).__new__(cls)
-            cls.instance.instances = []
         return cls.instance
 
     def deactivate(self):
+        self.in_use = False
         for instance in self.instances:
             instance.proper_exit = True
 
@@ -39,4 +39,5 @@ class PlayerInstance:
                  "syncbyframerate": SyncWizardFrameRate}
         new_obj = types[value]()
         self.instances.append(new_obj)
+        self.in_use = True
         return new_obj
