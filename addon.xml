@@ -23,6 +23,7 @@
             <fanart>resources/fanart.jpg</fanart>
         </assets>
         <summary lang="en_GB">Edit and synchronize subtitles with your remote</summary>
+        <summary lang="et_EE">Redigeeri ja sünkrooni subtiitreid puldiga</summary>
         <summary lang="fi_FI">Muokkaa ja ajoita tekstitykset kauko-ohjaimellasi</summary>
         <summary lang="ko_KR">리모컨으로 자막 편집 및 동기화</summary>
         <description lang="en_GB">With this script you can edit specific lines, move or stretch subtitles, and synchronize with other subtitles. You can also synchronize with a videofile.[CR][CR]To easily use this editor, launch it when the video and subtitle you wish to edit are playing.</description>
