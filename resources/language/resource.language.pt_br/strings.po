@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: XBMC Addons\n"
 "Report-Msgid-Bugs-To: translations@kodi.tv\n"
 "POT-Creation-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"PO-Revision-Date: 2024-05-16 02:13+0000\n"
+"PO-Revision-Date: 2024-05-18 21:31+0000\n"
 "Last-Translator: Havok Dan <havokdan@yahoo.com.br>\n"
 "Language-Team: Portuguese (Brazil) <https://kodi.weblate.cloud/projects/kodi-add-ons-scripts/script-sublissimo/pt_br/>\n"
 "Language: pt_br\n"
@@ -409,63 +409,63 @@ msgstr "Escreva o novo carimbo de data/hora para a posição inicial, separado p
 
 msgctxt "#32070"
 msgid "Subtitles moved forward by: {}"
-msgstr ""
+msgstr "Legendas movidas para frente por: {}"
 
 msgctxt "#32071"
 msgid "Subtitles moved backward by {}"
-msgstr ""
+msgstr "Legendas movidas para trás por {}"
 
 msgctxt "#32072"
 msgid "First subtitle now starts at {}"
-msgstr ""
+msgstr "A primeira legenda agora começa em {}"
 
 msgctxt "#33072"
 msgid "Last subtitle now starts at {}"
-msgstr ""
+msgstr "A última legenda agora começa em {}"
 
 msgctxt "#32073"
 msgid " Paused at: "
-msgstr ""
+msgstr " Pausado em: "
 
 msgctxt "#32074"
 msgid "Continue playing"
-msgstr ""
+msgstr "Continue reproduzindo"
 
 msgctxt "#32075"
 msgid "Select as start of first subtitle"
-msgstr ""
+msgstr "Selecione como início da primeira legenda"
 
 msgctxt "#32076"
 msgid "Skip backwards 1 second"
-msgstr ""
+msgstr "Retroceder 1 segundo"
 
 msgctxt "#32077"
 msgid "Skip forwards 1 second"
-msgstr ""
+msgstr "Avançar 1 segundo"
 
 msgctxt "#32078"
 msgid "Exit to Main Menu"
-msgstr ""
+msgstr "Sair para o Menu Principal"
 
 msgctxt "#32079"
 msgid "View or delete first subtitle"
-msgstr ""
+msgstr "Exibir ou excluir a primeira legenda"
 
 msgctxt "#32080"
 msgid "View or delete last subtitle"
-msgstr ""
+msgstr "Exibir ou excluir a última legenda"
 
 msgctxt "#32081"
 msgid "Select as start of last subtitle"
-msgstr ""
+msgstr "Selecione como início da última legenda"
 
 msgctxt "#32082"
 msgid "Set as first subtitle?"
-msgstr ""
+msgstr "Definir como primeira legenda?"
 
 msgctxt "#32083"
 msgid "Do you want your subtitle to start at: "
-msgstr ""
+msgstr "Você quer que sua legenda comece em:· "
 
 msgctxt "#32084"
 msgid "Reset start time"
